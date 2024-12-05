@@ -2,6 +2,45 @@ import streamlit as st
 import tiktoken
 from loguru import logger
 
+# 1~6 단계에 따라 문제를 해결할 수 있도록 추가
+try:
+    from langchain.chat_models import ChatOpenAI
+    from langchain_community import chat_models
+except ImportError as e:
+    st.error("필요한 패키지가 설치되지 않았습니다. 아래 단계를 따라 해결하세요:")
+    st.markdown("""
+    1. **`langchain_community` 패키지 설치**
+       ```
+       pip install langchain-community
+       ```
+
+    2. **LangChain 패키지 업데이트**
+       ```
+       pip install --upgrade langchain
+       ```
+
+    3. **Python 가상환경 확인**
+       ```
+       source /home/adminuser/venv/bin/activate
+       pip install --upgrade pip
+       pip install -r requirements.txt
+       ```
+
+    4. **임시 패치**
+       `streamlit_refer.py`의 상단에서 문제를 확인하려면 `try` 블록을 사용하세요.
+
+    5. **문제 디버깅**
+       아래 명령어로 설치된 패키지를 확인하세요:
+       ```
+       pip show langchain
+       pip show langchain-community
+       ```
+
+    6. **도움 요청**
+       여전히 문제가 있으면 Python 버전 및 설치된 패키지 버전을 공유하세요.
+    """)
+    raise e
+
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 
